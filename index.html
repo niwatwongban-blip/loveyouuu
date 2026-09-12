@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ขอจีบเธอได้มั้ย?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-top:#efe7fb;
+    --bg-bottom:#fbe8f2;
+    --card-bg:#ffffff;
+    --ink:#3a2e4d;
+    --ink-soft:#8a7fa0;
+    --plum:#5b3a8e;
+    --plum-deep:#432a6b;
+    --line:#efe9f7;
+    --pink:#f6b8cf;
+    --shadow: 0 24px 60px -20px rgba(91,58,142,0.28);
+  }
+
+  *{box-sizing:border-box;}
+
+  body{
+    margin:0;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:32px 18px;
+    font-family:'Kanit', sans-serif;
+    background:
+      radial-gradient(circle at 15% 15%, rgba(255,255,255,0.6), transparent 40%),
+      linear-gradient(160deg, var(--bg-top), var(--bg-bottom));
+    color:var(--ink);
+    overflow:hidden;
+    position:relative;
+  }
+
+  .bg-heart{
+    position:fixed;
+    top:100%;
+    font-size:20px;
+    color:var(--pink);
+    opacity:0.6;
+    pointer-events:none;
+    animation: floatUp linear infinite;
+  }
+  @keyframes floatUp{
+    to{ transform:translateY(-120vh) rotate(30deg); opacity:0; }
+  }
+
+  .card{
+    position:relative;
+    width:100%;
+    max-width:380px;
+    background:var(--card-bg);
+    border-radius:28px;
+    box-shadow:var(--shadow);
+    padding:36px 32px 32px;
+    text-align:center;
+    overflow:hidden;
+    z-index:1;
+  }
+
+  .card::before{
+    content:"";
+    position:absolute;
+    top:-60px; right:-60px;
+    width:150px; height:150px;
+    background:radial-gradient(circle, rgba(91,58,142,0.10), transparent 70%);
+    border-radius:50%;
+  }
+
+  .eyebrow{
+    font-size:11px;
+    letter-spacing:2.5px;
+    font-weight:500;
+    color:var(--ink-soft);
+    margin:0 0 18px;
+  }
+
+  .stage{
+    position:relative;
+    width:180px;
+    height:180px;
+    margin:0 auto 16px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+
+  .doily{
+    position:absolute;
+    inset:0;
+    border-radius:50%;
+    background:
+      radial-gradient(circle, #ffffff 62%, transparent 63%),
+      repeating-conic-gradient(from 0deg, #f3edfb 0deg 10deg, #ffffff 10deg 20deg);
+    box-shadow: 0 10px 30px -10px rgba(91,58,142,0.25);
+    animation: spin-slow 40s linear infinite;
+  }
+  @keyframes spin-slow{ to{ transform:rotate(360deg); } }
+
+  .sparkle{
+    position:absolute;
+    color:var(--pink);
+    font-size:16px;
+    animation: twinkle 1.8s ease-in-out infinite;
+  }
+  .sparkle:nth-child(1){ top:6px; left:14px; animation-delay:0s; }
+  .sparkle:nth-child(2){ top:20px; right:6px; animation-delay:.4s; }
+  .sparkle:nth-child(3){ bottom:14px; left:2px; animation-delay:.8s; }
+  .sparkle:nth-child(4){ bottom:4px; right:18px; animation-delay:1.2s; }
+  @keyframes twinkle{
+    0%,100%{ opacity:0.3; transform:scale(0.8); }
+    50%{ opacity:1; transform:scale(1.15); }
+  }
+
+  .speech{
+    position:absolute;
+    top:-6px;
+    left:50%;
+    transform:translateX(-50%);
+    background:#fff;
+    color:var(--plum);
+    font-weight:600;
+    font-size:13px;
+    padding:6px 14px;
+    border-radius:14px;
+    box-shadow:0 6px 14px -6px rgba(91,58,142,0.35);
+    z-index:2;
+    animation: bob 2.2s ease-in-out infinite;
+    white-space:nowrap;
+  }
+  .speech::after{
+    content:"";
+    position:absolute;
+    bottom:-6px;
+    left:50%;
+    transform:translateX(-50%);
+    border-width:6px 5px 0;
+    border-style:solid;
+    border-color:#fff transparent transparent transparent;
+  }
+  @keyframes bob{
+    0%,100%{ transform:translateX(-50%) translateY(0); }
+    50%{ transform:translateX(-50%) translateY(-4px); }
+  }
+
+  .art{
+    position:relative;
+    width:120px;
+    height:120px;
+    z-index:1;
+    transition:transform .2s ease;
+    image-rendering:auto;
+  }
+  .art.shake{ animation: shake .4s ease; }
+  @keyframes shake{
+    0%,100%{ transform:rotate(0); }
+    25%{ transform:rotate(-6deg); }
+    75%{ transform:rotate(6deg); }
+  }
+
+  h1{
+    font-size:24px;
+    font-weight:600;
+    margin:0 0 8px;
+    line-height:1.35;
+  }
+
+  h3{
+    font-size:14px;
+    font-weight:400;
+    color:var(--ink-soft);
+    margin:0 0 20px;
+    line-height:1.6;
+  }
+
+  #pleading-text{
+    font-size:14px;
+    font-weight:400;
+    color:var(--plum-deep);
+    background:#f6f1fb;
+    border-radius:14px;
+    padding:14px 16px;
+    margin:0 0 26px;
+    line-height:1.6;
+    min-height:20px;
+    transition:opacity .2s ease, transform .2s ease;
+  }
+
+  .actions{
+    display:flex;
+    gap:10px;
+  }
+
+  button{
+    flex:1;
+    font-family:inherit;
+    font-size:14px;
+    font-weight:500;
+    padding:13px 14px;
+    border-radius:14px;
+    border:none;
+    cursor:pointer;
+    transition:transform .15s ease, background .2s ease, opacity .2s ease;
+  }
+
+  button:active{
+    transform:scale(0.96);
+  }
+
+  .btn-yes{
+    background:var(--plum);
+    color:#fff;
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+  .btn-yes:hover{ background:var(--plum-deep); animation:none; }
+  @keyframes pulse{
+    0%,100%{ box-shadow:0 0 0 0 rgba(91,58,142,0.35); }
+    50%{ box-shadow:0 0 0 8px rgba(91,58,142,0); }
+  }
+
+  .btn-no{
+    background:transparent;
+    color:var(--ink-soft);
+    border:1px solid var(--line);
+  }
+  .btn-no:hover{ color:var(--ink); border-color:var(--ink-soft); }
+
+  #success-view{
+    display:none;
+  }
+
+  #success-view .stage .art{
+    animation: pop .5s ease;
+  }
+
+  @keyframes pop{
+    0%{ transform:scale(0.7) rotate(-6deg); opacity:0; }
+    60%{ transform:scale(1.08) rotate(2deg); opacity:1; }
+    100%{ transform:scale(1) rotate(0); }
+  }
+
+  .btn-restart{
+    width:100%;
+    background:var(--plum);
+    color:#fff;
+    margin-top:4px;
+  }
+  .btn-restart:hover{ background:var(--plum-deep); }
+
+  /* tiny floating music badge */
+  .music-badge{
+    position:fixed;
+    top:16px;
+    right:16px;
+    background:#ffffff;
+    border-radius:999px;
+    box-shadow:var(--shadow);
+    padding:8px 14px;
+    font-size:12px;
+    color:var(--plum-deep);
+    display:flex;
+    align-items:center;
+    gap:6px;
+    cursor:pointer;
+    z-index:10;
+    border:none;
+    font-family:inherit;
+  }
+  .music-badge .dot{
+    width:6px;height:6px;border-radius:50%;
+    background:var(--plum);
+  }
+  .music-badge.playing .dot{ animation: blink-dot 1s ease-in-out infinite; }
+  @keyframes blink-dot{ 0%,100%{opacity:1;} 50%{opacity:.3;} }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation:none !important; transition:none !important; }
+  }
+</style>
+</head>
+<body>
+
+<button class="music-badge" id="music-toggle" type="button">
+  <span class="dot"></span>
+  <span id="music-label">เปิดเพลง ♪</span>
+</button>
+
+<audio id="bgm" loop autoplay preload="auto">
+  <source src="oneday.mp3" type="audio/wav">
+</audio>
+
+<div class="card" id="card">
+
+  <!-- ASK VIEW -->
+  <div id="ask-view">
+    <p class="eyebrow">A LITTLE QUESTION</p>
+
+    <div class="stage">
+      <div class="doily"></div>
+      <span class="sparkle">✦</span>
+      <span class="sparkle">✧</span>
+      <span class="sparkle">✦</span>
+      <span class="sparkle">✧</span>
+      <span class="speech" id="speech-bubble">Please?</span>
+      <img id="character-img" class="art" src="https://cdn.stickers.gg/stickers/6286-kuromi-10.gif" alt="ตัวการ์ตูนน่ารักกำลังขอร้อง">
+    </div>
+
+    <h1>ขอจีบเธอได้มั้ย? ♡</h1>
+    <h3>ไม่ได้อยากรีบร้อน แค่อยากค่อย ๆ ทำความรู้จักเธอให้มากขึ้น</h3>
+    <p id="pleading-text">โอเค ๆ ไม่กดดันก็ได้ แต่เรายังอยากจีบอยู่นะ ♡</p>
+    <div class="actions">
+      <button class="btn-yes" id="btn-yes" type="button">จีบหน่อยได้</button>
+      <button class="btn-no" id="btn-no" type="button">ไม่ให้จีบ</button>
+    </div>
+  </div>
+
+  <!-- SUCCESS VIEW -->
+  <div id="success-view">
+    <p class="eyebrow">YAY, IT'S A YES</p>
+    <div class="stage">
+      <div class="doily"></div>
+      <span class="sparkle">✦</span>
+      <span class="sparkle">✧</span>
+      <span class="sparkle">✦</span>
+      <span class="sparkle">✧</span>
+      <span class="speech">Yay!</span>
+      <img class="art" id="success-img" src="https://www.gifcen.com/wp-content/uploads/2025/02/kuromi-gif-6.gif" alt="ตัวการ์ตูนดีใจ">
+    </div>
+    <h1>เย้! งั้นเริ่มจีบเลยนะ ♡</h1>
+    <h3>สัญญาว่าจะค่อย ๆ ดูแลความรู้สึกของเธอ และทำให้การรู้จักกันครั้งนี้น่ารักที่สุด</h3>
+    <button class="btn-restart" id="btn-restart" type="button">เริ่มใหม่</button>
+  </div>
+
+</div>
+
+<script>
+  // ---- original animated mascot GIFs (own artwork), in the same order used for looping ----
+  const faceImages = [
+    "https://cdn.stickers.gg/stickers/6286-kuromi-10.gif",
+    "https://i.pinimg.com/originals/f2/a6/3f/f2a63fac26460b82783414162d3db0bf.gif",
+    "https://media1.tenor.com/m/mQgsdMciwSQAAAAC/kuromi-crying.gif",
+    "https://media1.tenor.com/m/4bnDsHGXnVEAAAAC/kuromi-kuromi-blank-stare.gif",
+    "https://www.bing.com/th/id/OGC.5676f75991be66fd61c140f3c1dc8bc6?r=0&o=7&pid=1.7&rm=3&rurl=https%3a%2f%2fmedia.tenor.com%2fmUdZ5TBhBDYAAAAC%2fsanrio-kuromi.gif&ehk=RUONMzf2P%2b68c4z5KDWpaW7%2bMuNBGm56eKZz%2fxhyYj8%3d",
+    "https://media1.tenor.com/m/nrYVqabe7hoAAAAC/kuromi-sanrio.gif",
+    "https://s3.getstickerpack.com/storage/uploads/sticker-pack/kuromi-1/sticker_5.gif?450a9647b06cdad8bd89a9136a7b6d92"
+  ];
+  const successImage = "https://www.gifcen.com/wp-content/uploads/2025/02/kuromi-gif-6.gif";
+
+  const speeches = ["Please?", "Pretty please?"];
+
+  const messages = [
+    "โอเค ๆ ไม่กดดันก็ได้ แต่เรายังอยากจีบอยู่นะ ",
+    "กดไม่ให้จีบอีกแล้ว... โต้งอนแล้วนะ 🥺",
+    "ไม่เป็นไรเลย แต่ขอเก็บเธอไว้ในใจอีกนิดได้มั้ย ☁️",
+    "ถ้าเธอโอเค เราจะตั้งใจทำให้ทุกวันมีรอยยิ้มนะ",
+    "ลองคิดดูอีกนิดนะ เรามีความน่ารักให้เธอทุกวันเลย",
+    "ใจเย็นๆ นะ เราจะรอเธอไปเรื่อยๆ เลย ",
+    "จริงจังนะ เราคิดถึงเธอทุกวันเลย "
+  ];
+
+  let step = 0;
+
+  const pleadingText  = document.getElementById('pleading-text');
+  const characterImg  = document.getElementById('character-img');
+  const speechBubble  = document.getElementById('speech-bubble');
+  const btnNo         = document.getElementById('btn-no');
+  const btnYes        = document.getElementById('btn-yes');
+  const btnRestart    = document.getElementById('btn-restart');
+  const askView       = document.getElementById('ask-view');
+  const successView   = document.getElementById('success-view');
+  const successImg    = document.getElementById('success-img');
+  const bgm           = document.getElementById('bgm');
+  const musicToggle   = document.getElementById('music-toggle');
+  const musicLabel    = document.getElementById('music-label');
+
+  characterImg.src = faceImages[0];
+  successImg.src = successImage;
+
+  btnNo.addEventListener('click', () => {
+    step++;
+    const msg  = messages[step % messages.length];
+    const face = faceImages[step % faceImages.length];
+    const talk = speeches[step % speeches.length];
+
+    fadeSwap(pleadingText, msg);
+    speechBubble.textContent = talk;
+    characterImg.src = face;
+
+    characterImg.classList.remove('shake');
+    void characterImg.offsetWidth;
+    characterImg.classList.add('shake');
+
+    spawnHeart();
+  });
+
+  btnYes.addEventListener('click', () => {
+    askView.style.display = 'none';
+    successView.style.display = 'block';
+    for (let i = 0; i < 6; i++) setTimeout(spawnHeart, i * 120);
+  });
+
+  btnRestart.addEventListener('click', () => {
+    step = 0;
+    pleadingText.textContent = messages[0];
+    speechBubble.textContent = speeches[0];
+    characterImg.src = faceImages[0];
+    successView.style.display = 'none';
+    askView.style.display = 'block';
+  });
+
+  function fadeSwap(el, text){
+    el.style.opacity = 0;
+    el.style.transform = 'translateY(4px)';
+    setTimeout(() => {
+      el.textContent = text;
+      el.style.opacity = 1;
+      el.style.transform = 'translateY(0)';
+    }, 150);
+  }
+
+  function spawnHeart(){
+    const heart = document.createElement('div');
+    heart.className = 'bg-heart';
+    heart.textContent = ['♡', '💜', '✧'][Math.floor(Math.random() * 3)];
+    heart.style.left = Math.random() * 100 + 'vw';
+    heart.style.animationDuration = (4 + Math.random() * 3) + 's';
+    heart.style.fontSize = (14 + Math.random() * 14) + 'px';
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 8000);
+  }
+
+  setInterval(spawnHeart, 2600);
+
+  // ---- background music: try to autoplay, fall back to a tap-to-play badge ----
+  // (most mobile/desktop browsers block audio with sound until the user interacts
+  // with the page at least once — this handles both cases gracefully)
+  function setPlayingUI(isPlaying){
+    musicToggle.classList.toggle('playing', isPlaying);
+    musicLabel.textContent = isPlaying ? 'กำลังเล่นเพลง ♪' : 'เปิดเพลง ♪';
+  }
+
+  function tryAutoplay(){
+    bgm.volume = 0.5;
+    const p = bgm.play();
+    if (p !== undefined){
+      p.then(() => setPlayingUI(true)).catch(() => setPlayingUI(false));
+    }
+  }
+
+  musicToggle.addEventListener('click', () => {
+    if (bgm.paused){
+      bgm.play().then(() => setPlayingUI(true)).catch(() => {});
+    } else {
+      bgm.pause();
+      setPlayingUI(false);
+    }
+  });
+
+  // attempt autoplay immediately on load
+  window.addEventListener('DOMContentLoaded', tryAutoplay);
+
+  // if blocked, the very first tap/click/keypress anywhere starts it
+  ['click', 'touchstart', 'keydown'].forEach(evt => {
+    document.addEventListener(evt, function starter(){
+      if (bgm.paused){
+        bgm.play().then(() => setPlayingUI(true)).catch(() => {});
+      }
+      document.removeEventListener(evt, starter);
+    }, { once: true });
+  });
+</script>
+
+</body>
+</html>
